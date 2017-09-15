@@ -65,7 +65,7 @@ html {
 	border: 1px solid black;
 }
 
-.player {
+.player, .old_player {
 	padding: 5px;
 	display: flex;
     justify-content: space-between;
@@ -73,7 +73,7 @@ html {
 }
 
 .player:hover {
-	background-color: #c0dfe4;
+	background-color: lightgreen;
 }
 
 .player_pairing {
@@ -104,6 +104,7 @@ html {
 
 }
 .champion {
+	width: 200px;
 	font-size: 16px;
 	text-align: center;
 	background-color: lightgreen;

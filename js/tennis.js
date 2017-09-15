@@ -7,7 +7,7 @@ $(document).ready($ => {
 	let resetButton = $('#reset_button');
 
 	let inputPlayerList = [];  //  Stores user input player names
-	let remainingPlayers = inputPlayerList;
+	// let remainingPlayers = inputPlayerList;
 
 	let round = 1;  		// Round number displayed in UI
 	let roundTotal = 0;		// Number of rounds in the tournament
@@ -52,7 +52,7 @@ $(document).ready($ => {
 
 	generateFixtureListButtons.on('click', function () {
 
-		displayFixtureList(shuffle(remainingPlayers));
+		displayFixtureList(shuffle(inputPlayerList));
 	});
 
 
@@ -73,7 +73,10 @@ $(document).ready($ => {
 
 		let playerField = $(this);
 
-		if (playerField.children('p').text() !== 'bye') {
+		// Don't set/unset winner if player = bye
+		// or
+		// Other player = bye (player will already be set as a winner if the other player is a bye)
+		if (playerField.children('p').text() !== 'bye' && playerField.next().children('p').text() !== 'bye') {
 
 			playerField.toggleClass('winner');
 
@@ -86,21 +89,34 @@ $(document).ready($ => {
 		}	
 	});
 
+
 	$(document).on('click', '.generate_next_round', function(e) { 
 
-		let remainingPlayers = [];
+		let winningPlayers = [];
+		let playersInRound = 0;
 
 		//  Get winners
-		$('.winner').each(function() { remainingPlayers.push($(this).children('p').text()) });
+		$('.winner').each(function() { winningPlayers.push($(this).children('p').text()) });
 
-		//  Set winners to old_winners before generating new round
-		$('.winner').each(function() { $(this).addClass('old_winner'); $(this).toggleClass('winner'); });
-
+		$('.player').each(function() { playersInRound++ });
 
 
-		displayFixtureList(shuffle(remainingPlayers));
+		if (playersInRound/winningPlayers.length === 2) { // Half the players set as winners
+
+			//  Set winners to old_winners, then remove winner class before generating new round
+			$('.winner').each(function() { $(this).addClass('old_winner'); $(this).toggleClass('winner'); });
+			// Set players to old_players so that they cannot be modified in old rounds
+			$('.player').each(function() { $(this).addClass('old_player'); $(this).toggleClass('player'); });
+
+			$('.generate_next_round').hide();
+
+			displayFixtureList(shuffle(winningPlayers));
+
+		} else {
+
+			alert("Please select a winner for each match");
+		}
 		
-
 	});
 
 	
@@ -146,10 +162,12 @@ $(document).ready($ => {
 
 			for ( i = 0; i < playerTotal; i+=2) {
 
+				let isBye = playerList[i+1] === undefined ? true : false;  // If 2nd player isn't there, set 2nd = 'bye'
+
 				HTMLString += "<div class='player_pairing'>";
-				HTMLString +=   "<div class='player'><p>" + playerList[i] + "</p><h5 class='won_txt'>Winner!</h5></div>";
+				HTMLString +=   "<div " + ( isBye ? "class='player winner' " : "class='player'") + "><p>" + playerList[i] + "</p><h5 class='won_txt'>Winner!</h5></div>";
 				HTMLString +=   "<div class='player'><p>" 
-								+ (playerList[i+1] === undefined ? "bye" : playerList[i+1] + "</p><h5 class='won_txt'>Winner!</h5></div>")
+								+ (isBye ? "bye" : playerList[i+1] + "</p><h5 class='won_txt'>Winner!</h5></div>")
 				HTMLString += "</div>";
 			}
 			HTMLString += "</div>";
@@ -157,7 +175,7 @@ $(document).ready($ => {
 		} else {	// Display the winner
 
 			HTMLString += "<div class='champ_container'>";
-		    HTMLString +=   "<h4>!! " + getFixtureName(playerTotal) + " !!</h4>";
+		    // HTMLString +=   "<h4>!! " + getFixtureName(playerTotal) + " !!</h4>";
 		    HTMLString +=   "<div class='player_pairing'>";
 			HTMLString +=     "<div class='champion'><p>" + playerList[0] + "</p><h6 class='won_txt'>Champion</h6></div>";
 			HTMLString +=   "</div>";
@@ -178,7 +196,7 @@ $(document).ready($ => {
 		
 		} else if (playerTotal >= 2) {  return 'Final';
 
-		} else if (playerTotal >= 1) { return 'We have a champion!';
+		} else if (playerTotal >= 1) { return 'Champion';
 
 		}	else {	//  PlayerTotal = 0
 
