@@ -3,10 +3,19 @@ html {
 	font-size: 14px;
 }
 
+.jumbotron {
+	background-image: url("../images/table-tennis.jpg");
+	color: white;
+}
+
 .screen_area {
 
 	padding: 5px;
 	margin-bottom: 10px;
+}
+
+.screen-section {
+	background-color: #333;
 }
 
 .page_header {
@@ -50,10 +59,10 @@ html {
 	border: 1px solid black;
 }
 
-.generate_fixture_list {
+/*.generate_fixture_list {
 
 	float: right;
-}
+}*/
 
 .generate_next_round {
 	float: right;
@@ -62,6 +71,7 @@ html {
 .round_container {
 
 	width: 300px;
+	padding: 5px;
 	border: 1px solid black;
 }
 

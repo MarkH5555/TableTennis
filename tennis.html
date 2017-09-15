@@ -10,35 +10,51 @@
         
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> -->
     </head>
-    <body class="app__container">
+    <body class="container">
 
-        <div class="page_header screen_area">
-            <img src="./images/ping-pong.png" class="header_image" height=60px>
-            <div id="header_block" class="screen_area">
-                <button id="reset_button">New Tournament</button>
+        <div class="jumbotron jumbotron-fluid">
+            <!-- <img src="./images/ping-pong.png" class="header_image" height=60px> -->
+            <div class="container">
+                <button id="reset_button" class="btn btn-secondary">New Tournament</button>
                 <h1>Table Tennis Tracker</h1>
                 
             </div>
             
         </div>
 
-        <div id="player_input__area" class="screen_area">
+        <div class="row justify-content-md-center">
+            <div id="player_input_a" class="card w-50 card-inverse card-info mb-3 text-center ">
+               
+                <div class="card-block">
+                    <h3 class="card-title">Player Input</h3>
+                    <p class="card-text">Enter all your players, one at a time, then generate a random fixture list for the first round matches.</p>
+                    
+                </div>
+                <div class="card-footer text-muted">
+                    <input id="player_name" type="string" name="Value1" >
+                    <button class="player_input btn btn-outline-primary"> Add Player 1</button>
+                </div>
 
-            <p>Enter all your players, one at a time, then generate a random fixture list for the first round matches.</p>
-       
-            <input id="player_name" type="string" name="Value1" >
-            <button class="player_input"> Add Player 1 </button>
+            </div>
+        </div>
 
-        </div>    <!-- player_input__area  -->
+        <div class="row justify-content-md-center">
+             <div id="player_list_a" class="card col-md-4 col-6 card-inverse card-primary mb-3 text-center">
+                 <div class="card-header">
+                    <h3>Player List</h3>
+                  </div>
+                <div class="card-block">
+                  <!--   --> <h3 class="card-title"></h3>
+                    <nl >         
+                    </nl>
+                </div>
+                <div class="card-footer text-muted">
+                    <button class="generate_fixture_list btn btn-outline-info"> Generate Fixture List </button>
+                </div>
+            </div>
+         </div>
 
-        <div id="player_list_area" class="screen_area">
-
-            <button class="generate_fixture_list"> Generate Fixture List </button>
-            <h3>Player List</h3>
-            <ul >         
-            </ul>
-
-        </div>  <!-- player list area  -->
+        
 
         <div class="fixture_list_area screen_area">
 

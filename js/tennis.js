@@ -11,7 +11,17 @@ $(document).ready($ => {
 	let round = 1;  		// Round number displayed in UI
 	let roundTotal = 0;		// Number of rounds in the tournament
 
-	
+
+	// let jumboHeight = $('.jumbotron').outerHeight();
+	// function parallax(){
+	//     var scrolled = $(window).scrollTop();
+	//     $('.bg').css('height', (jumboHeight-scrolled) + 'px');
+	// }
+
+	// $(window).scroll(function(e){
+	//     parallax();
+	// });
+
 	addPlayerButtons.on('click', function () {
 
 		let newName = $('#player_name').val();
@@ -51,8 +61,8 @@ $(document).ready($ => {
 
 	generateFixtureListButton.on('click', function () {
 
-		$('#player_input__area').hide();
-		$('#player_list_area').hide();
+		$('#player_input_a').hide();	// Hide the input areas
+		$('#player_list_a').hide();
 
 		displayFixtureList(shuffle(inputPlayerList));
 	});
@@ -134,7 +144,7 @@ $(document).ready($ => {
 	// Adds entered players to UI list
 	function displayPlayer(name) {
 
-		$('#player_list_area ul').append($("<li>" + name + "</li>"));
+		$('#player_list_a nl').append($("<h6>" + name + "</h6>"));
 	}
 
 
@@ -160,7 +170,7 @@ $(document).ready($ => {
 
 			HTMLString += "<div class='round_container'>";
 			HTMLString += "<button class='generate_next_round'>Create Next Round</button>";
-		    HTMLString += "<h3> Fixture List </h3><h4> " + getFixtureName(playerTotal) + "</h4>";
+		    HTMLString += "<h4> " + getFixtureName(playerTotal) + "</h4>";
 
 			for ( i = 0; i < playerTotal; i+=2) {
 
