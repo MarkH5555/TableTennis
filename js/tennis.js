@@ -101,8 +101,6 @@ $(document).ready($ => {
 		displayFixtureList(shuffle(remainingPlayers));
 		
 
-		console.log(remainingPlayers);
-
 	});
 
 	
@@ -136,22 +134,35 @@ $(document).ready($ => {
 	function displayFixtureList(playerList) {
 
 		let playerTotal = playerList.length;
+		let HTMLString = '';
 
 		//  Build a string & append once to avoid append parse issues
 
-		let HTMLString = "<div class='round_container'>";
+		if (playerTotal > 1) {	// Output player pairings
+
+			HTMLString += "<div class='round_container'>";
 			HTMLString += "<button class='generate_next_round'>Create Next Round</button>";
 		    HTMLString += "<h3> Fixture List </h3><h4> " + getFixtureName(playerTotal) + "</h4>";
 
-		for ( i = 0; i < playerTotal; i+=2) {
+			for ( i = 0; i < playerTotal; i+=2) {
 
-			HTMLString += "<div class='player_pairing'>";
-			HTMLString +=   "<div class='player'><p>" + playerList[i] + "</p><h5 class='won_txt'>Winner!</h5></div>";
-			HTMLString +=   "<div class='player'><p>" 
-							+ (playerList[i+1] === undefined ? "bye" : playerList[i+1] + "</p><h5 class='won_txt'>Winner!</h5></div>")
+				HTMLString += "<div class='player_pairing'>";
+				HTMLString +=   "<div class='player'><p>" + playerList[i] + "</p><h5 class='won_txt'>Winner!</h5></div>";
+				HTMLString +=   "<div class='player'><p>" 
+								+ (playerList[i+1] === undefined ? "bye" : playerList[i+1] + "</p><h5 class='won_txt'>Winner!</h5></div>")
+				HTMLString += "</div>";
+			}
+			HTMLString += "</div>";
+
+		} else {	// Display the winner
+
+			HTMLString += "<div class='champ_container'>";
+		    HTMLString +=   "<h4>!! " + getFixtureName(playerTotal) + " !!</h4>";
+		    HTMLString +=   "<div class='player_pairing'>";
+			HTMLString +=     "<div class='champion'><p>" + playerList[0] + "</p><h6 class='won_txt'>Champion</h6></div>";
+			HTMLString +=   "</div>";
 			HTMLString += "</div>";
 		}
-		HTMLString += "</div>";
 
 		$('.fixture_list_area').append(HTMLString);
 	}
@@ -167,7 +178,7 @@ $(document).ready($ => {
 		
 		} else if (playerTotal >= 2) {  return 'Final';
 
-		} else if (playerTotal >= 1) { return 'We have a winner!';
+		} else if (playerTotal >= 1) { return 'We have a champion!';
 
 		}	else {	//  PlayerTotal = 0
 

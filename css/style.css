@@ -92,9 +92,20 @@ html {
 }
 
 .old_winner {
-	background-color: green;
+	background-color: lightgrey;
 }
 
-.loser {
+/*.loser {
 	background-color: lightgrey;
+}*/
+
+.champ_container {
+
+
+}
+.champion {
+	font-size: 16px;
+	text-align: center;
+	background-color: lightgreen;
+	color: black;
 }
