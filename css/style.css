@@ -73,6 +73,7 @@ html {
 }
 
 .player:hover {
+
 	background-color: lightgreen;
 }
 
@@ -95,9 +96,7 @@ html {
 	background-color: lightgrey;
 }
 
-/*.loser {
-	background-color: lightgrey;
-}*/
+
 
 .champ_container {
 

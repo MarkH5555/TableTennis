@@ -3,11 +3,10 @@
 $(document).ready($ => {
 
 	let addPlayerButtons = $('.player_input');
-	let generateFixtureListButtons = $('.generate_fixture_list');
+	let generateFixtureListButton = $('.generate_fixture_list');
 	let resetButton = $('#reset_button');
 
 	let inputPlayerList = [];  //  Stores user input player names
-	// let remainingPlayers = inputPlayerList;
 
 	let round = 1;  		// Round number displayed in UI
 	let roundTotal = 0;		// Number of rounds in the tournament
@@ -50,19 +49,22 @@ $(document).ready($ => {
 	});
 
 
-	generateFixtureListButtons.on('click', function () {
+	generateFixtureListButton.on('click', function () {
+
+		$('#player_input__area').hide();
+		$('#player_list_area').hide();
 
 		displayFixtureList(shuffle(inputPlayerList));
 	});
 
 
-	resetButton.on('click', function () {
+	resetButton.on('click', function () {	//  Reolad the page!
 
 		let cancelText = "Creating a new tournament will erase any tournament information that already exists.  Do you really want to do this?";
 
 		if(confirm(cancelText)) {
 
-			location.reload();  //  Reolad the page!
+			location.reload();  
 		} 
 	});
 
@@ -89,7 +91,8 @@ $(document).ready($ => {
 		}	
 	});
 
-
+	//  Need to use this function format as the player class
+	//  is appended dynamically after page load
 	$(document).on('click', '.generate_next_round', function(e) { 
 
 		let winningPlayers = [];
@@ -97,11 +100,10 @@ $(document).ready($ => {
 
 		//  Get winners
 		$('.winner').each(function() { winningPlayers.push($(this).children('p').text()) });
-
+		// Get number of players in round
 		$('.player').each(function() { playersInRound++ });
 
-
-		if (playersInRound/winningPlayers.length === 2) { // Half the players set as winners
+		if (playersInRound/winningPlayers.length === 2) { // Check if half the players set as winners
 
 			//  Set winners to old_winners, then remove winner class before generating new round
 			$('.winner').each(function() { $(this).addClass('old_winner'); $(this).toggleClass('winner'); });
@@ -120,7 +122,7 @@ $(document).ready($ => {
 	});
 
 	
-	// Returns a name with correct capitalisation
+	// Returns a name with first letter caps, the rest lowercase
 	function formatName(name) {
 
 		let lowerCaseName = name.toLowerCase();
@@ -225,5 +227,4 @@ $(document).ready($ => {
 		  }
   		return array;
 	}
-
 });
