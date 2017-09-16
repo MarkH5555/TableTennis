@@ -12,15 +12,6 @@ $(document).ready($ => {
 	let roundTotal = 0;		// Number of rounds in the tournament
 
 
-	// let jumboHeight = $('.jumbotron').outerHeight();
-	// function parallax(){
-	//     var scrolled = $(window).scrollTop();
-	//     $('.bg').css('height', (jumboHeight-scrolled) + 'px');
-	// }
-
-	// $(window).scroll(function(e){
-	//     parallax();
-	// });
 
 	addPlayerButtons.on('click', function () {
 
@@ -43,39 +34,50 @@ $(document).ready($ => {
 				} else {	// Duplicate name
 
 					$('#player_name').val('');  // Clear the input box
-					alert("This name already exists, please enter a unique name");
+
+					errorModal('Duplicate name', 'This name already exists, please enter a unique name.');
 				}	
 
 			} else {	// No content
 
-				alert("Please enter a name");
+				errorModal('Missing name', 'Please enter a name.');
 			}
 
 		} else {	// Name longer than 25 characters
 
 			$('#player_name').val('');  // Clear the input box
-			alert("Please keep name lenght below 25 characters");
+
+			errorModal('Name too long', 'Please keep name lenght below 25 characters.');
 		}	
 	});
 
 
 	generateFixtureListButton.on('click', function () {
 
-		$('#player_input_a').hide();	// Hide the input areas
-		$('#player_list_a').hide();
+		if (inputPlayerList.length >= 2) {
 
-		displayFixtureList(shuffle(inputPlayerList));
+			$('#player_input_a').hide();	// Hide the input areas
+			$('#player_list_a').hide();
+
+			displayFixtureList(shuffle(inputPlayerList));
+
+		} else {
+
+			errorModal('Insuficient Players for a tournament', 'At least two players are needed for a tournament, please add some more.');
+		}
+		
 	});
 
 
-	resetButton.on('click', function () {	//  Reolad the page!
+	resetButton.on('click', function () {	//  Reolad the page?
 
-		let cancelText = "Creating a new tournament will erase any tournament information that already exists.  Do you really want to do this?";
+		$('#choice-modal').modal();
 
-		if(confirm(cancelText)) {
+		$('#confirmYes').click(function(){
 
-			location.reload();  
-		} 
+	     	$('#confirmYes').modal('hide');
+	   		location.reload();
+    	});
 	});
 
 
@@ -168,8 +170,8 @@ $(document).ready($ => {
 
 		if (playerTotal > 1) {	// Output player pairings
 
-			HTMLString += "<div class='round_container'>";
-			HTMLString += "<button class='generate_next_round'>Create Next Round</button>";
+			HTMLString += "<div class='round_container card card-success'>";
+			HTMLString += "<button class='generate_next_round btn btn-primary btn-sm'>Create Next Round</button>";
 		    HTMLString += "<h4> " + getFixtureName(playerTotal) + "</h4>";
 
 			for ( i = 0; i < playerTotal; i+=2) {
@@ -214,6 +216,13 @@ $(document).ready($ => {
 
 			return 'We need some players!';
 		}
+	}
+
+	function errorModal(titleTxt, bodyTxt) {
+
+		$('#error-modal .modal-title').text(titleTxt);
+		$('#error-modal .modal-body p').text(bodyTxt);
+		$('#error-modal').modal();
 	}
 
 

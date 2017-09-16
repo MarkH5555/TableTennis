@@ -1,12 +1,15 @@
-html {
 
-	font-size: 14px;
-}
+html { font-size: 14px; }
 
 .jumbotron {
 	background-image: url("../images/table-tennis.jpg");
 	color: white;
 }
+
+.modal-header { background-image: url("../images/table-tennis-alt2.jpg"); }
+
+
+.modal-footer { background-image: url("../images/table-tennis.jpg"); }
 
 .screen_area {
 
@@ -14,9 +17,7 @@ html {
 	margin-bottom: 10px;
 }
 
-.screen-section {
-	background-color: #333;
-}
+.screen-section { background-color: #333; }
 
 /*.page_header {
 	padding: 20px;
@@ -35,10 +36,9 @@ html {
 	border: 1px solid black;
 }*/
 
-#reset_button {
+#reset_button { float: right; }
 
-	float: right;
-}
+
 
 /*#player_input__area {
 
@@ -47,18 +47,20 @@ html {
 	background-color: #c0dfe4;
 	border: 1px solid black;
 }
-
-#player_list_area {
-	width: 300px;
-	border: 3px solid darkgreen;
-}
 */
+.round_container {
+	background-color: #31708f;
+}
+
+
+/**/
 .fixture_list_area {
 	display: flex;
 	align-items: flex-start;
 	justify-content:center;
-	background-color: #c0dfe4;
+	background-color: steelblue;
 	border: 1px solid black;
+	border-radius: 10px;
 }
 
 /*.generate_fixture_list {
@@ -66,9 +68,7 @@ html {
 	float: right;
 }*/
 
-.generate_next_round {
-	float: right;
-}
+/*.generate_next_round { float: right; }*/
 
 .round_container {
 
@@ -82,38 +82,25 @@ html {
 	display: flex;
     justify-content: space-between;
 	border: 0.5px solid black;
+	border-radius: 5px;
 }
 
-.player:hover {
-
-	background-color: lightgreen;
-}
+.player:hover { background-color: lightgreen; }
 
 .player_pairing {
 	padding: 5px;
 	background-color: white;
 	border: 0.5px solid darkblue;
+	border-radius: 5px;
 }
 
-.won_txt {
-	color: white;
-}
+.won_txt { color: white; }
+
+.winner { background-color: lightgreen; }
+
+.old_winner { background-color: lightgrey; }
 
 
-.winner {
-	background-color: lightgreen;
-}
-
-.old_winner {
-	background-color: lightgrey;
-}
-
-
-
-.champ_container {
-
-
-}
 .champion {
 	width: 200px;
 	font-size: 16px;
