@@ -18,29 +18,29 @@ html {
 	background-color: #333;
 }
 
-.page_header {
+/*.page_header {
 	padding: 20px;
-	/*display: flex;*/
-    /*justify-content: space-between;*/
+	display: flex;
+    justify-content: space-between;
 	background-color: darkgreen;
 	border-bottom: 10px solid #c0dfe4;
-}
+}*/
 
-.header_image {
+/*.header_image {
 	float:left;
-}
+}*/
 
-#header_block {
+/*#header_block {
 	width: 450px;
 	border: 1px solid black;
-}
+}*/
 
 #reset_button {
 
 	float: right;
 }
 
-#player_input__area {
+/*#player_input__area {
 
 	width: 400px;
 	padding: 5px;
@@ -52,9 +52,11 @@ html {
 	width: 300px;
 	border: 3px solid darkgreen;
 }
-
+*/
 .fixture_list_area {
 	display: flex;
+	align-items: flex-start;
+	justify-content:center;
 	background-color: #c0dfe4;
 	border: 1px solid black;
 }
