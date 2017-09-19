@@ -47,10 +47,10 @@
                     <h3>Player List</h3>
                     <button class="generate_fixture_list btn btn-outline-info">Generate Fixture List</button>
                 </div>
-                <div class="card-block">
-                  <!--   --> <h3 class="card-title"></h3>
-                    <nl >         
-                    </nl>
+                <div class="card-block"> 
+                  <h3 class="card-title"></h3>
+                  <nl>   <!--  Content added by tennis.js -->        
+                  </nl>
                 </div>
                 <div class="card-footer text-muted">
                 </div>
@@ -58,12 +58,13 @@
          </div>
 
         
-         <!-- CONTENT ADDED BY tennis.js -->
+         <!-- Content added by tennis.js -->
         <div class="fixture_list_area screen_area">
 
         </div>  <!-- Fixture list area  -->
         
 
+        <!-- Modal called from JQuery with user input errors -->
 
         <div id="error-modal" class="modal fade">
           <div class="modal-dialog" role="document">
@@ -83,6 +84,8 @@
             </div>
           </div>
         </div>
+
+        <!-- Modal called from JQuery when user resets the tournament -->
 
         <div id="choice-modal"  class="modal fade">
           <div class="modal-dialog" role="document">
@@ -104,6 +107,7 @@
           </div>
         </div>
 
+        <!-- Model called to display the winner -->
 
         <div id="champ-modal"  class="modal fade">
           <div class="modal-dialog" role="document">
@@ -123,7 +127,6 @@
             </div>
           </div>
         </div>
-
 
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script src="js/tennis.js"></script>
