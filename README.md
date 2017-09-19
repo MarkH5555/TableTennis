@@ -3,12 +3,20 @@
 
 ## A match scheduler for a table tennis
 
-Table Tennis Tracker allows the user to create a fixture table for a table tennis tournament.  Users input a list of players which is then used to generate randonly matched rounds.  The tracker is able to cope with an odd number of players, giving a bye to a player in each round, if needed.
+Table Tennis Tracker allows the user to create a fixture table for a table tennis tournament.  Users input a list of players which is then used to generate randonly matched rounds, tracking winners through each round.
 
 ## Installation
 
-Copy the file structure into your chosen directoy then open the index.html file in your browser.
+Copy the file structure into your chosen directoy then open the index.html file in your browser.   Once installed, your file structure will look like this.
+
+`````
+css/
+images/
+js/
+index.html
+`````
 
 ## User guide
 
 ### Configuring players
+
