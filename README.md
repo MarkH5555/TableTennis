@@ -16,7 +16,16 @@ js/
 index.html
 `````
 
-## User guide
+## User Guide
 
-### Configuring players
+<img width="500" alt="screen shot 2017-09-19 at 20 21 53" src="https://user-images.githubusercontent.com/24626768/30612706-5ec36a88-9d7d-11e7-8693-fd2695222820.png">
+
+Enter players, one at a time into the UI using the enter key or clicking on the Add Player button.  As players are entered they will be added to the Player List and the Add Player button will increment to tell you how many players are in the tournament.  If an odd number of players are added, one player will recieve an automatic 'bye' into the next round. 
+
+
+
+Once all players have been added, click Generate Fixture list to generate the first random match parings.  As matches complete, clicroundk on the winning player to set them as the match winner.  Once all matches in the round have been decided, click Generate Next Round to move winning players into the next round.  Continue until a winner is found.
+
+
+
 
