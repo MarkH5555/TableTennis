@@ -3,21 +3,37 @@
 $(document).ready($ => {
 
 	let addPlayerButtons = $('.player_input');
-	let generateFixtureListButtons = $('.generate_fixture_list');
+	let generateFixtureListButton = $('.generate_fixture_list');
 	let resetButton = $('#reset_button');
+	let playerInput = $('#player_name');
 
 	let inputPlayerList = [];  //  Stores user input player names
-	// let remainingPlayers = inputPlayerList;
 
 	let round = 1;  		// Round number displayed in UI
 	let roundTotal = 0;		// Number of rounds in the tournament
 
-	
+	let MAX_STR_LEN = 20;
+
+
+	playerInput.keypress(function(e) {
+	    if(e.which == 13) {
+
+	        getInput();
+	    }
+	});
+
+
 	addPlayerButtons.on('click', function () {
+
+		getInput();
+	});
+
+
+	function getInput() {
 
 		let newName = $('#player_name').val();
 
-		if (newName.length < 25) {
+		if (newName.length <= MAX_STR_LEN) {
 
 			if (newName.length > 0) {	// Check for content
 
@@ -34,36 +50,54 @@ $(document).ready($ => {
 				} else {	// Duplicate name
 
 					$('#player_name').val('');  // Clear the input box
-					alert("This name already exists, please enter a unique name");
-				}	
+
+					errorModal('Duplicate name', 'This name already exists, please enter a unique name.');
+				}
 
 			} else {	// No content
 
-				alert("Please enter a name");
+				errorModal('Missing name', 'Please enter a name.');
+				
 			}
 
 		} else {	// Name longer than 25 characters
 
 			$('#player_name').val('');  // Clear the input box
-			alert("Please keep name lenght below 25 characters");
+
+			errorModal('Name too long', 'Please keep name lenght below ' + MAX_STR_LEN + ' characters.');
 		}	
+
+	}
+
+	
+
+
+	generateFixtureListButton.on('click', function () {
+
+		if (inputPlayerList.length >= 2) {
+
+			$('#player_input_a').hide();	// Hide the input areas
+			$('#player_list_a').hide();
+
+			displayFixtureList(shuffle(inputPlayerList));
+
+		} else {
+
+			errorModal('Insuficient Players for a tournament', 'At least two players are needed for a tournament, please add some more.');
+		}
+		
 	});
 
 
-	generateFixtureListButtons.on('click', function () {
+	resetButton.on('click', function () {	//  Reolad the page?
 
-		displayFixtureList(shuffle(inputPlayerList));
-	});
+		$('#choice-modal').modal();
 
+		$('#confirmYes').click(function(){
 
-	resetButton.on('click', function () {
-
-		let cancelText = "Creating a new tournament will erase any tournament information that already exists.  Do you really want to do this?";
-
-		if(confirm(cancelText)) {
-
-			location.reload();  //  Reolad the page!
-		} 
+	     	$('#confirmYes').modal('hide');
+	   		location.reload();
+    	});
 	});
 
 
@@ -76,7 +110,7 @@ $(document).ready($ => {
 		// Don't set/unset winner if player = bye
 		// or
 		// Other player = bye (player will already be set as a winner if the other player is a bye)
-		if (playerField.children('p').text() !== 'bye' && playerField.next().children('p').text() !== 'bye') {
+		if (playerField.children('h6').text() !== 'bye' && playerField.next().children('h6').text() !== 'bye') {
 
 			playerField.toggleClass('winner');
 
@@ -89,19 +123,19 @@ $(document).ready($ => {
 		}	
 	});
 
-
+	//  Need to use this function format as the player class
+	//  is appended dynamically after page load
 	$(document).on('click', '.generate_next_round', function(e) { 
 
 		let winningPlayers = [];
 		let playersInRound = 0;
 
 		//  Get winners
-		$('.winner').each(function() { winningPlayers.push($(this).children('p').text()) });
-
+		$('.winner').each(function() { winningPlayers.push($(this).children('h6').text()) });
+		// Get number of players in round
 		$('.player').each(function() { playersInRound++ });
 
-
-		if (playersInRound/winningPlayers.length === 2) { // Half the players set as winners
+		if (playersInRound/winningPlayers.length === 2) { // Check if half the players set as winners
 
 			//  Set winners to old_winners, then remove winner class before generating new round
 			$('.winner').each(function() { $(this).addClass('old_winner'); $(this).toggleClass('winner'); });
@@ -114,13 +148,14 @@ $(document).ready($ => {
 
 		} else {
 
-			alert("Please select a winner for each match");
+			errorModal('Missing winner', 'Please select a winner for each match.');
+
 		}
 		
 	});
 
 	
-	// Returns a name with correct capitalisation
+	// Returns a name with first letter caps, the rest lowercase
 	function formatName(name) {
 
 		let lowerCaseName = name.toLowerCase();
@@ -132,7 +167,7 @@ $(document).ready($ => {
 	// Adds entered players to UI list
 	function displayPlayer(name) {
 
-		$('#player_list_area ul').append($("<li>" + name + "</li>"));
+		$('#player_list_a nl').append($("<h6>" + name + "</h6>"));
 	}
 
 
@@ -154,38 +189,34 @@ $(document).ready($ => {
 
 		//  Build a string & append once to avoid append parse issues
 
-		if (playerTotal > 1) {	// Output player pairings
+		if (playerTotal > 1) {	// Output player pairings  card card-success
 
 			HTMLString += "<div class='round_container'>";
-			HTMLString += "<button class='generate_next_round'>Create Next Round</button>";
-		    HTMLString += "<h3> Fixture List </h3><h4> " + getFixtureName(playerTotal) + "</h4>";
+			HTMLString += "<button class='generate_next_round btn btn-primary btn-sm'>Create Next Round</button>";
+		    HTMLString += "<h4> " + getFixtureName(playerTotal) + "</h4>";
 
 			for ( i = 0; i < playerTotal; i+=2) {
 
 				let isBye = playerList[i+1] === undefined ? true : false;  // If 2nd player isn't there, set 2nd = 'bye'
 
 				HTMLString += "<div class='player_pairing'>";
-				HTMLString +=   "<div " + ( isBye ? "class='player winner' " : "class='player'") + "><p>" + playerList[i] + "</p><h5 class='won_txt'>Winner!</h5></div>";
-				HTMLString +=   "<div class='player'><p>" 
-								+ (isBye ? "bye" : playerList[i+1] + "</p><h5 class='won_txt'>Winner!</h5></div>")
+				HTMLString +=   "<div " + ( isBye ? "class='player winner' " : "class='player'") + "><h6>" + playerList[i] + "</h6><h7 class='won_txt'>W</h7></div>";
+				HTMLString +=   "<div class='player'><h6>" + (isBye ? "bye" : playerList[i+1] + "</h6><h7 class='won_txt'>W</h7></div>")
 				HTMLString += "</div>";
 			}
 			HTMLString += "</div>";
 
 		} else {	// Display the winner
 
-			HTMLString += "<div class='champ_container'>";
-		    // HTMLString +=   "<h4>!! " + getFixtureName(playerTotal) + " !!</h4>";
-		    HTMLString +=   "<div class='player_pairing'>";
-			HTMLString +=     "<div class='champion'><p>" + playerList[0] + "</p><h6 class='won_txt'>Champion</h6></div>";
-			HTMLString +=   "</div>";
-			HTMLString += "</div>";
+			$('#champ-modal .modal-body h3').text("The winner is " + playerList[0]);
+			$('#champ-modal').modal();
+
 		}
 
 		$('.fixture_list_area').append(HTMLString);
 	}
 
-	
+   
 	function getFixtureName(playerTotal) {
 
 		if (playerTotal > 8) {  return "Round " + round++;
@@ -203,6 +234,33 @@ $(document).ready($ => {
 			return 'We need some players!';
 		}
 	}
+
+
+	function errorModal(titleTxt, bodyTxt) {
+
+		$('#error-modal .modal-title').text(titleTxt);
+		$('#error-modal .modal-body p').text(bodyTxt);
+
+		$('#error-modal').modal();
+	}
+
+	// Functions neded to pass focus to the modal, otherwise
+	// app hangs when enter pressed as focus remains on
+	// page and is not passed to the modal.
+	$("#error-modal").on('shown.bs.modal', function(){
+
+		 $(this).find('#error-button').focus();
+ 	});
+
+	$("#choice-modal").on('shown.bs.modal', function(){
+
+		 $(this).find('#confirmYes').focus();
+ 	}); 
+
+ 	$("#champ-modal").on('shown.bs.modal', function(){
+
+		 $(this).find('#champ-close').focus();
+ 	}); 
 
 
 	// Fisher-Yates Sort algorithm
@@ -225,5 +283,4 @@ $(document).ready($ => {
 		  }
   		return array;
 	}
-
 });
