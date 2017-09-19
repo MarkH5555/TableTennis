@@ -19,73 +19,45 @@ html { font-size: 14px; }
 
 .screen-section { background-color: #333; }
 
-/*.page_header {
-	padding: 20px;
-	display: flex;
-    justify-content: space-between;
-	background-color: darkgreen;
-	border-bottom: 10px solid #c0dfe4;
-}*/
-
-/*.header_image {
-	float:left;
-}*/
-
-/*#header_block {
-	width: 450px;
-	border: 1px solid black;
-}*/
 
 #reset_button { float: right; }
 
 
-
-/*#player_input__area {
-
-	width: 400px;
-	padding: 5px;
-	background-color: #c0dfe4;
-	border: 1px solid black;
-}
-*/
 .round_container {
+	width: 250px;
 	background-color: #31708f;
+	padding: 5px;
+	border: 1px solid black;
+	border-radius: 5px;
 }
+
+.generate_next_round { float: right; }
+
 
 
 /**/
 .fixture_list_area {
+
 	display: flex;
-	align-items: flex-start;
-	justify-content:center;
+	align-items: center; 
+	justify-content: center;
+	overflow-x: scroll;
 	background-color: steelblue;
 	border: 1px solid black;
 	border-radius: 10px;
 }
 
-/*.generate_fixture_list {
-
-	float: right;
-}*/
-
-/*.generate_next_round { float: right; }*/
-
-.round_container {
-
-	width: 300px;
-	padding: 5px;
-	border: 1px solid black;
-}
 
 .player, .old_player {
 	padding: 5px;
 	display: flex;
     justify-content: space-between;
+    text-align: center;
 	border: 0.5px solid black;
 	border-radius: 5px;
 }
 
-.player:hover { background-color: lightgreen; }
+.player:hover { background-color: green; }
 
 .player_pairing {
 	padding: 5px;
@@ -98,7 +70,15 @@ html { font-size: 14px; }
 
 .winner { background-color: lightgreen; }
 
-.old_winner { background-color: lightgrey; }
+.old_winner { 
+	background-color: lightgrey; 
+	font-size: 10px;
+}
+
+#champ-modal .modal-body {
+
+	background-color: lightgreen;
+}
 
 
 .champion {
@@ -107,4 +87,10 @@ html { font-size: 14px; }
 	text-align: center;
 	background-color: lightgreen;
 	color: black;
+	border: 0.5px solid black;
+
 }
+
+
+
+

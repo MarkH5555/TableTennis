@@ -13,7 +13,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
  
     </head>
-    <body class="container">
+    <body class="container-fluid">
 
         <div class="jumbotron jumbotron-fluid">
             <!-- <img src="./images/ping-pong.png" class="header_image" height=60px> -->
@@ -43,16 +43,16 @@
 
         <div class="row justify-content-center">
              <div id="player_list_a" class="card card-inverse card-primary mb-3 text-center">
-                 <div class="card-header">
+                <div class="card-header">
                     <h3>Player List</h3>
-                  </div>
+                    <button class="generate_fixture_list btn btn-outline-info">Generate Fixture List</button>
+                </div>
                 <div class="card-block">
                   <!--   --> <h3 class="card-title"></h3>
                     <nl >         
                     </nl>
                 </div>
                 <div class="card-footer text-muted">
-                    <button class="generate_fixture_list btn btn-outline-info">Generate Fixture List</button>
                 </div>
             </div>
          </div>
@@ -78,7 +78,7 @@
                 <p></p>  <!-- Content added when modal called -->
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                <button type="button" id="error-button" class="btn btn-info" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
@@ -103,6 +103,27 @@
             </div>
           </div>
         </div>
+
+
+        <div id="champ-modal"  class="modal fade">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">We have a champion!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <h3><</h3>
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="champ-close" class="btn btn-info" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script src="js/tennis.js"></script>
