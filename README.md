@@ -26,6 +26,6 @@ Enter players, one at a time into the UI using the enter key or clicking on the 
 
 Once all players have been added, click Generate Fixture list to generate the first random match parings.  As matches complete, clicroundk on the winning player to set them as the match winner.  Once all matches in the round have been decided, click Generate Next Round to move winning players into the next round.  Continue until a winner is found.
 
+<img width="500" alt="screen shot 2017-09-19 at 20 26 03" src="https://user-images.githubusercontent.com/24626768/30613769-2cd9531c-9d81-11e7-9f46-db7e3eb1b30a.png">
 
-
-
+You can start a new tournament at any time by selecting New Tournament at the top right of the screen, this will erase all current tournament data.
