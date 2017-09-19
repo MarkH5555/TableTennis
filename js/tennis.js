@@ -12,7 +12,7 @@ $(document).ready($ => {
 	let round = 1;  		// Round number displayed in UI
 	let roundTotal = 0;		// Number of rounds in the tournament
 
-	let MAX_STR_LEN = 20;
+	let MAX_STR_LEN = 20;	// Max name string len
 
 
 	playerInput.keypress(function(e) {
@@ -56,21 +56,16 @@ $(document).ready($ => {
 
 			} else {	// No content
 
-				errorModal('Missing name', 'Please enter a name.');
-				
+				errorModal('Missing name', 'Please enter a name.');				
 			}
 
 		} else {	// Name longer than 25 characters
 
 			$('#player_name').val('');  // Clear the input box
-
 			errorModal('Name too long', 'Please keep name lenght below ' + MAX_STR_LEN + ' characters.');
 		}	
-
 	}
-
 	
-
 
 	generateFixtureListButton.on('click', function () {
 
@@ -85,7 +80,6 @@ $(document).ready($ => {
 
 			errorModal('Insuficient Players for a tournament', 'At least two players are needed for a tournament, please add some more.');
 		}
-		
 	});
 
 
@@ -149,9 +143,7 @@ $(document).ready($ => {
 		} else {
 
 			errorModal('Missing winner', 'Please select a winner for each match.');
-
 		}
-		
 	});
 
 	
@@ -182,12 +174,13 @@ $(document).ready($ => {
 	}
 
 
+	// THIS FUNCTION NEEDS RE-FACTORING TO USE THE STANDARD JQUERY HTML FUNCTIONS
 	function displayFixtureList(playerList) {
 
 		let playerTotal = playerList.length;
 		let HTMLString = '';
 
-		//  Build a string & append once to avoid append parse issues
+		//  Build a string & append() once to avoid append JQuery parse issues
 
 		if (playerTotal > 1) {	// Output player pairings  card card-success
 
@@ -201,19 +194,17 @@ $(document).ready($ => {
 
 				HTMLString += "<div class='player_pairing'>";
 				HTMLString +=   "<div " + ( isBye ? "class='player winner' " : "class='player'") + "><h6>" + playerList[i] + "</h6><h7 class='won_txt'>W</h7></div>";
-				HTMLString +=   "<div class='player'><h6>" + (isBye ? "bye" : playerList[i+1] + "</h6><h7 class='won_txt'>W</h7></div>")
+				HTMLString +=   "<div class='player'><h6>" + (isBye ? "<i>bye</i>" : playerList[i+1] + "</h6><h7 class='won_txt'>W</h7></div>")
 				HTMLString += "</div>";
 			}
 			HTMLString += "</div>";
+			$('.fixture_list_area').append(HTMLString);
 
 		} else {	// Display the winner
 
 			$('#champ-modal .modal-body h3').text("The winner is " + playerList[0]);
 			$('#champ-modal').modal();
-
 		}
-
-		$('.fixture_list_area').append(HTMLString);
 	}
 
    
