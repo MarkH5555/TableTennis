@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Table Tennis</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+ 
+    </head>
+    <body class="container-fluid">
+
+        <div class="jumbotron jumbotron-fluid">
+            <!-- <img src="./images/ping-pong.png" class="header_image" height=60px> -->
+            <div class="container">
+                <button id="reset_button" class="btn btn-secondary">New Tournament</button>
+                <h1>Table Tennis Tracker</h1>
+                
+            </div>
+            
+        </div>
+
+        <div class="row justify-content-center">
+            <div id="player_input_a" class="card card-inverse card-info mb-3 text-center ">
+               
+                <div class="card-block">
+                    <h3 class="card-title">Player Input</h3>
+                    <p class="card-text">Enter all your players, one at a time, then generate a random fixture list for the first round matches.</p>
+                    
+                </div>
+                <div class="card-footer text-muted">
+                    <input id="player_name" type="string" name="Value1" >
+                    <button class="player_input btn btn-outline-primary"> Add Player 1</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+             <div id="player_list_a" class="card card-inverse card-primary mb-3 text-center">
+                <div class="card-header">
+                    <h3>Player List</h3>
+                    <button class="generate_fixture_list btn btn-outline-info">Generate Fixture List</button>
+                </div>
+                <div class="card-block"> 
+                  <h3 class="card-title"></h3>
+                  <nl>   <!--  Content added by tennis.js -->        
+                  </nl>
+                </div>
+                <div class="card-footer text-muted">
+                </div>
+            </div>
+         </div>
+
+        
+         <!-- Content added by tennis.js -->
+        <div class="fixture_list_area screen_area">
+
+        </div>  <!-- Fixture list area  -->
+        
+
+        <!-- Modal called from JQuery with user input errors -->
+
+        <div id="error-modal" class="modal fade">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"></h5> <!-- Content added when modal called -->
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p></p>  <!-- Content added when modal called -->
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="error-button" class="btn btn-info" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal called from JQuery when user resets the tournament -->
+
+        <div id="choice-modal"  class="modal fade">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Create a New Tournament?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Creating a new tournament will erase any tournament information that already exists.  Do you really want to do this?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="confirmYes" data-dismiss="modal" class="btn btn-primary">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Model called to display the winner -->
+
+        <div id="champ-modal"  class="modal fade">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">We have a champion!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <h3><</h3>
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="champ-close" class="btn btn-info" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script src="js/tennis.js"></script>
+    </body>
+</html>
