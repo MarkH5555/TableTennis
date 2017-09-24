@@ -12,7 +12,7 @@ $(document).ready($ => {
 	let round = 1;  		// Round number displayed in UI
 	let roundTotal = 0;		// Number of rounds in the tournament
 
-	let MAX_STR_LEN = 20;	// Max name string len
+	const MAX_STR_LEN = 20;	// Max player name string len
 
 
 	playerInput.keypress(function(e) {
@@ -28,6 +28,9 @@ $(document).ready($ => {
 		getInput();
 	});
 
+	//  FUNCTION gets player names from the users and feeds them into the
+	//  inputPlayerList array.
+	//  Error checking is carried out on the user input
 
 	function getInput() {
 
@@ -37,55 +40,57 @@ $(document).ready($ => {
 
 			if (newName.length > 0) {	// Check for content
 
-				let formattedName = formatName(newName);	// Capitalise name
+				let formattedName = formatName(newName);	// Set Capitalisation
 
-				if(notDuplicate(formattedName)) {	// Check for duplicates
+				if(notDuplicate(formattedName)) {	// Check that name hasn't already been entered
 
+					// EVERYTHING OK, ADD THE PLAYER
 					inputPlayerList.push(formattedName);  // Add name to player array
 					displayPlayer(formattedName);
 
-					$('.player_input').text(' Add Player ' + (inputPlayerList.length+1)); // Update button text
+					$('.player_input').text(' Add Player ' + (inputPlayerList.length+1)); // Update button counter text
+					$('#player_name').val('');  // Clear the input box ready for the next player
+
+				} else {	// Duplicate name error
+
 					$('#player_name').val('');  // Clear the input box
-
-				} else {	// Duplicate name
-
-					$('#player_name').val('');  // Clear the input box
-
 					errorModal('Duplicate name', 'This name already exists, please enter a unique name.');
 				}
 
-			} else {	// No content
+			} else {	// No content error
 
 				errorModal('Missing name', 'Please enter a name.');				
 			}
 
-		} else {	// Name longer than 25 characters
+		} else {	// Name longer than MAX_STR_LEN error
 
 			$('#player_name').val('');  // Clear the input box
 			errorModal('Name too long', 'Please keep name lenght below ' + MAX_STR_LEN + ' characters.');
 		}	
 	}
 	
+	// FUNCTION creates the initial fixture list
 
 	generateFixtureListButton.on('click', function () {
 
-		if (inputPlayerList.length >= 2) {
+		if (inputPlayerList.length >= 2) {	// Check that there at least two players
 
 			$('#player_input_a').hide();	// Hide the input areas
 			$('#player_list_a').hide();
 
 			displayFixtureList(shuffle(inputPlayerList));
 
-		} else {
+		} else {	// < two players error
 
 			errorModal('Insuficient Players for a tournament', 'At least two players are needed for a tournament, please add some more.');
 		}
 	});
 
+	// FUNCTION resets the app ready for a new tournament
 
 	resetButton.on('click', function () {	//  Reolad the page?
 
-		$('#choice-modal').modal();
+		$('#choice-modal').modal();	// Check if they really want to reload
 
 		$('#confirmYes').click(function(){
 
@@ -94,9 +99,11 @@ $(document).ready($ => {
     	});
 	});
 
+	//  FUNCTION toggles winner status when a player is clicked
 
 	//  Need to use this function format as the player class
 	//  is appended dynamically after page load
+
 	$(document).on('click', '.player', function(e) {
 
 		let playerField = $(this);
@@ -108,14 +115,16 @@ $(document).ready($ => {
 
 			playerField.toggleClass('winner');
 
-			// If winner set when the other player also has winner set, 
-			// unset winner for the other player
+			// If winner set when the other player also has winner set, then toggle winner
+			// status for the other player
 			if (playerField.hasClass('winner') && playerField.siblings().hasClass('winner')) {
 
 				playerField.siblings().toggleClass('winner');
 			}
 		}	
 	});
+
+	// FUNCTION gets all winners and generates the next round
 
 	//  Need to use this function format as the player class
 	//  is appended dynamically after page load
@@ -126,10 +135,10 @@ $(document).ready($ => {
 
 		//  Get winners
 		$('.winner').each(function() { winningPlayers.push($(this).children('h6').text()) });
-		// Get number of players in round
+		// Update player counter for the next round
 		$('.player').each(function() { playersInRound++ });
 
-		if (playersInRound/winningPlayers.length === 2) { // Check if half the players set as winners
+		if (playersInRound/winningPlayers.length === 2) { // Check that half the players set as winners
 
 			//  Set winners to old_winners, then remove winner class before generating new round
 			$('.winner').each(function() { $(this).addClass('old_winner'); $(this).toggleClass('winner'); });
@@ -147,7 +156,7 @@ $(document).ready($ => {
 	});
 
 	
-	// Returns a name with first letter caps, the rest lowercase
+	// FUNCTION returns a name with first letter caps, the rest lowercase
 	function formatName(name) {
 
 		let lowerCaseName = name.toLowerCase();
@@ -156,14 +165,14 @@ $(document).ready($ => {
 	}
 
 
-	// Adds entered players to UI list
+	// FUNCTION Adds entered players to the initial player list during the game setup
 	function displayPlayer(name) {
 
 		$('#player_list_a nl').append($("<h6>" + name + "</h6>"));
 	}
 
 
-	// Checks if name already exists
+	// FUNCTION checks if a newly entered name already exists in the player array
 	function notDuplicate(newName) {
 
 		if (inputPlayerList.indexOf(newName) === -1) {
@@ -173,6 +182,8 @@ $(document).ready($ => {
 		return false;
 	}
 
+	//  FUNCTION creates a fixture list by pairing and displaying all players in 
+	// a 'player-pairing' div
 
 	// THIS FUNCTION NEEDS RE-FACTORING TO USE THE STANDARD JQUERY HTML FUNCTIONS
 	function displayFixtureList(playerList) {
@@ -207,7 +218,8 @@ $(document).ready($ => {
 		}
 	}
 
-   
+    // FUNCTION returns the name of the round based on how many winning players remain
+    
 	function getFixtureName(playerTotal) {
 
 		if (playerTotal > 8) {  return "Round " + round++;
@@ -226,6 +238,8 @@ $(document).ready($ => {
 		}
 	}
 
+	// FUNCTION displays a Bootstrap Modal, called when an user input 
+	// error has been detected.
 
 	function errorModal(titleTxt, bodyTxt) {
 
